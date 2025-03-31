@@ -1,0 +1,89 @@
+import React from "react";
+import Banner from "../assets/images/banner.png";
+import styled from "styled-components";
+import { menuItems } from "../utils/constants/foods";
+import { CardItem } from "./ui/CardItem";
+export const MainContent = () => {
+  return (
+    <StyledMain>
+      <StyledImg src={Banner} alt="banner" />
+      <Description>
+        <StyledH2>Delicious Food, Delivered To You</StyledH2>
+        <StyledP1>
+          Choose your favorite meal from our broad selection of available meals
+          and enjoy a delicious lunch or dinner at home.
+        </StyledP1>
+        <StyledP1>
+          All our meals are cooked with high-quality ingredients, just-in-time
+          and of course by  experienced chefs!
+        </StyledP1>
+      </Description>
+      <StyledUl>
+        {menuItems.map((item) => (
+          <CardItem key={item.id} {...item} />
+        ))}
+      </StyledUl>
+    </StyledMain>
+  );
+};
+const StyledMain = styled.main`
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(63, 63, 63);
+`;
+const StyledImg = styled.img`
+  width: 100%;
+  height: 432px;
+`;
+const Description = styled.div`
+  width: 854px;
+  height: 270px;
+  border-radius: 16px;
+  box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.3);
+  background: rgb(56, 56, 56);
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  right: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 120px;
+`;
+const StyledH2 = styled.h2`
+  color: rgb(255, 255, 255);
+  font-family: Poppins;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 54px;
+  letter-spacing: 0%;
+  text-align: left;
+  text-align: center;
+`;
+const StyledP1 = styled.p`
+  color: rgb(255, 255, 255);
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+`;
+const StyledUl = styled.ul`
+  width: 1039px;
+  height: 564px;
+  border-radius: 16px;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  margin-bottom: 100px;
+  padding: 0px 40px;
+`;
