@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { ModalContex } from "../context/ContextModal";
+import { Button } from "./ui/Button";
 
 const massive = [
   { title: "burger", price: 40 },
@@ -23,7 +24,7 @@ const Modal = () => {
                   <h3>{item.title}</h3>
                   <StyledPriceBtn>
                     <span>$34</span>
-                    <button>x1</button>
+                    <Button></Button>
                   </StyledPriceBtn>
                 </div>
                 <div>
