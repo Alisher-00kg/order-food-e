@@ -1,12 +1,12 @@
 import React from "react";
-import Banner from "../assets/images/banner.png";
 import styled from "styled-components";
 import { menuItems } from "../utils/constants/foods";
 import { CardItem } from "./ui/CardItem";
+import { BannerImg } from "../assets";
 export const MainContent = () => {
   return (
     <StyledMain>
-      <StyledImg src={Banner} alt="banner" />
+      <StyledImg src={BannerImg} alt="banner" />
       <Description>
         <StyledH2>Delicious Food, Delivered To You</StyledH2>
         <StyledP1>
@@ -85,5 +85,5 @@ const StyledUl = styled.ul`
   align-items: center;
   margin-top: 10%;
   margin-bottom: 100px;
-  padding: 0px 40px;
+  padding: 0px 40px
 `;

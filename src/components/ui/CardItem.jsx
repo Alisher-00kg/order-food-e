@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Input from "./Input";
+import { Icons } from "../../assets";
+import { Button } from "./Button";
 
-export const CardItem = ({ title, structure, price, amount }) => {
+export const CardItem = ({ id, title, structure, price, amount }) => {
   return (
     <StyledLi>
       <FoodContainer>
@@ -10,13 +12,16 @@ export const CardItem = ({ title, structure, price, amount }) => {
         <Structure>{structure}</Structure>
         <Cost>${price}</Cost>
       </FoodContainer>
-      <div>
+      <AmountContainer>
         <StyledAmount>
-          Amount
-          <StyledInputNumber type="number" value={amount} />
+          <StyledLabel htmlFor={id}>Amount</StyledLabel>
+          <StyledInputNumber type="number" value={amount} min={1} max={5} />
         </StyledAmount>
-        <button>+add</button>
-      </div>
+        <Button variant={"add"}>
+          <Icons.PlusWhite />
+          Add
+        </Button>
+      </AmountContainer>
     </StyledLi>
   );
 };
@@ -27,7 +32,6 @@ const StyledLi = styled.li`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgb(214, 214, 214);
-  /* box-shadow: 0px 6px 12px 0px rgba(36, 36, 36, 0.08); */
 `;
 const FoodContainer = styled.div`
   display: flex;
@@ -64,11 +68,20 @@ const Cost = styled.p`
   letter-spacing: 0px;
   text-align: left;
 `;
-const StyledAmount = styled.p`
+const AmountContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+`;
+const StyledAmount = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
+`;
+const StyledLabel = styled.label`
   color: rgb(34, 34, 34);
   font-family: Poppins;
   font-size: 18px;
