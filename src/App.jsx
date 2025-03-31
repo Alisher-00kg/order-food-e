@@ -3,17 +3,8 @@ import Modal from "./components/Modal";
 import { useContext } from "react";
 import { ModalContex } from "./context/ContextModal";
 
-const App = () => {
-  const { openClose, setOpenClose } = useContext(ModalContex);
-  return (
-    <div>
-      {openClose ? (
-        <Modal></Modal>
-      ) : (
-        <button onClick={() => setOpenClose(!openClose)}>click</button>
-      )}
-    </div>
-  );
-};
+import React from "react";
 
-export default App;
+export const App = () => {
+  return <div>App</div>;
+};
