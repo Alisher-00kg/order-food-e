@@ -1,109 +1,103 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useContext } from "react";
 import { createPortal } from "react-dom";
+import styled from "styled-components";
+import { ModalContex } from "../context/ContextModal";
 
 const massive = [
   { title: "burger", price: 40 },
   { title: "burger", price: 40 },
   { title: "burger", price: 40 },
   { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
-
-  { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
 ];
 
 const Modal = () => {
+  const { openClose, setOpenClose } = useContext(ModalContex);
   return createPortal(
-    <BackDropDiv>
-      <UlStyled>
-        <StyledContentDiv>
-          {massive.map((item, index) => {
+    <BackdropDiv onClick={() => setOpenClose(!openClose)}>
+      <StyledContent onClick={(e) => e.stopPropagation()}>
+        <StyledUl>
+          {massive.map((item, i) => {
             return (
-              <Listyled key={index}>
-                <FoodFirstItem>
-                  <h1>{item.title}</h1>
-                  <StyledPrice>
-                    <span>${item.price}</span>
+              <StyledLI key={i}>
+                <div>
+                  <h3>{item.title}</h3>
+                  <StyledPriceBtn>
+                    <span>$34</span>
                     <button>x1</button>
-                  </StyledPrice>
-                </FoodFirstItem>
-                <FoodbuttDiv>
+                  </StyledPriceBtn>
+                </div>
+                <div>
                   <button>-</button>
                   <button>+</button>
-                </FoodbuttDiv>
-              </Listyled>
+                </div>
+              </StyledLI>
             );
           })}
-        </StyledContentDiv>
-        <StyledDiv>
-          <h1>Total Ammount</h1>
-          <h1>200</h1>
-        </StyledDiv>
-      </UlStyled>
-    </BackDropDiv>,
-
+        </StyledUl>
+        <StyledTotalAmmount>
+          <p>Total Ammount</p>
+          <span>400$</span>
+        </StyledTotalAmmount>
+        <StyledCloseButtons>
+          <button onClick={() => setOpenClose(!openClose)}>close</button>
+          <button onClick={() => setOpenClose(!openClose)}>order</button>
+        </StyledCloseButtons>
+      </StyledContent>
+    </BackdropDiv>,
     document.getElementById("modal")
   );
 };
 
 export default Modal;
 
-const BackDropDiv = styled.div``;
-
-const UlStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-right: 20px;
-  padding: 100px;
+const BackdropDiv = styled.div`
   height: 100vh;
-
-  background: rgb(176, 176, 176);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(176, 176, 176);
+  backdrop-filter: blur(5px);
 `;
 
-const Listyled = styled.div`
+const StyledContent = styled.div`
+  height: 437px;
+  width: 670px;
+  background-color: white;
+  padding: 40px;
+`;
+
+const StyledUl = styled.ul`
+  width: 570px;
+  height: 200px;
+  overflow-y: auto;
+`;
+const StyledLI = styled.li`
   display: flex;
+  width: 530px;
+  height: 100px;
   border-bottom: 1px solid gray;
-  margin-top: 28px;
-  gap: 240px;
-  padding-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const FoodFirstItem = styled.div`
+const StyledPriceBtn = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 47px;
+  padding-top: 16px;
+  align-items: center;
 `;
-const FoodbuttDiv = styled.div`
+
+const StyledTotalAmmount = styled.div`
   display: flex;
-  gap: 30px;
+  padding-top: 29px;
+  gap: 425px;
 `;
 
-const StyledPrice = styled.div`
+const StyledCloseButtons = styled.div`
   display: flex;
-  gap: 20px;
-`;
-
-const StyledContentDiv = styled.div`
-  width: 500px;
-  padding: 30px;
-  overflow-y: scroll;
-  padding-right: 20px;
-
-  height: 560px;
-  background-color: white;
-  font-size: 20px;
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  background-color: white;
-  width: 500px;
-  padding: 20px;
-  gap: 170px;
+  flex-direction: row-reverse;
+  padding-top: 24px;
+  margin-right: 19px;
+  gap: 16px;
 `;
