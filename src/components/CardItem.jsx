@@ -4,7 +4,7 @@ import Input from "./ui/Input";
 import { Icons } from "../assets";
 import { Button } from "./ui/Button";
 
-export const Card = ({ id, title, structure, price, amount }) => {
+export const CardItem = ({ id, title, structure, price, amount }) => {
   return (
     <StyledLi>
       <FoodContainer>
@@ -32,7 +32,6 @@ const StyledLi = styled.li`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgb(214, 214, 214);
-  margin-left: 100px;
 `;
 const FoodContainer = styled.div`
   display: flex;
