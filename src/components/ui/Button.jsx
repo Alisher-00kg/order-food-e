@@ -26,14 +26,8 @@ const StylesButton = (variant) => {
       return {
         width: "99px",
         height: "41px",
-        borderRadius: "20px",
         background: "rgb(138, 43, 6)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "10px",
         color: "white",
-        fontFamily: "Poppins",
         fontSize: "14px",
         fontWeight: "700",
         lineHeight: "21px",
@@ -55,16 +49,10 @@ const StylesButton = (variant) => {
         height: "44px",
         borderRadius: "20px",
         border: "1px solid rgb(138, 43, 6)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "10px",
+        background: "transparent",
         color: "rgb(138, 43, 6)",
-        fontFamily: "Poppins",
         fontSize: "16px",
-        fontWeight: "500",
         lineHeight: "24px",
-        letterSpacing: "0px",
         "&:hover": {
           background: "rgb(138, 43, 6)",
           color: "white",
@@ -75,12 +63,18 @@ const StylesButton = (variant) => {
         "&:disabled": {
           border: "1px solid rgb(202, 198, 196)",
           color: "#CAC6C4",
+          background: "transparent",
         },
       };
     }
   }
 };
 const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 20px;
   border: none;
   cursor: pointer;
   ${(props) => StylesButton(props.variant)}
