@@ -26,7 +26,7 @@ export const HeaderButton = () => {
               <>
                 <StyledH2>Total Amount</StyledH2>
                 <DivCost>
-                  <StyledSpanAmount>$</StyledSpanAmount>
+                  <StyledSpanAmount>$$</StyledSpanAmount>
                   <Button variant={"close"} onClick={onClose}>
                     Close
                   </Button>
