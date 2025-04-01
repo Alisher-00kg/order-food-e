@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { menuItems } from "../utils/constants/foods";
-import { CardItem } from "./ui/CardItem";
 import { BannerImg } from "../assets";
+import { CardItem } from "./CardItem";
 export const MainContent = () => {
   return (
     <StyledMain>
@@ -57,25 +57,19 @@ const Description = styled.div`
 `;
 const StyledH2 = styled.h2`
   color: rgb(255, 255, 255);
-  font-family: Poppins;
   font-size: 36px;
   font-weight: 600;
   line-height: 54px;
-  letter-spacing: 0%;
   text-align: left;
   text-align: center;
 `;
 const StyledP1 = styled.p`
   color: rgb(255, 255, 255);
-  font-family: Poppins;
-  font-size: 16px;
-  font-weight: 500;
   line-height: 24px;
-  letter-spacing: 0%;
   text-align: center;
 `;
 const StyledUl = styled.ul`
-  width: 1039px;
+  width: fit-content;
   height: 564px;
   border-radius: 16px;
   background: rgb(255, 255, 255);
@@ -85,5 +79,5 @@ const StyledUl = styled.ul`
   align-items: center;
   margin-top: 10%;
   margin-bottom: 100px;
-  padding: 0px 40px
+  padding: 0px 40px;
 `;
