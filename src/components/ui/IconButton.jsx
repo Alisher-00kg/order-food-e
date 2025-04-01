@@ -52,12 +52,14 @@ const StylesButton = (variant) => {
         border: "1px solid rgb(138, 43, 6)",
         background: "transparent",
         color: "rgb(138, 43, 6)",
-        fontSize: "16px",
         lineHeight: "24px",
         borderRadius: "8px",
         "&:hover": {
           background: "rgb(138, 43, 6)",
           color: "white",
+          "& path": {
+            stroke: "#fff",
+          },
         },
         "&:active": {
           background: "rgb(153, 49, 8)",

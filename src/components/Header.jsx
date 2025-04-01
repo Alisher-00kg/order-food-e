@@ -1,16 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { HeaderButton } from "./ui/HeaderButton";
 
 export const Header = () => {
-  // const handleButtonClick = () => {
-  //   alert("Button clicked!");
-  // };
-
   return (
     <StyledHeader>
       <div>
         <StyledH1>ReactMeals</StyledH1>
       </div>
+      <HeaderButton />
     </StyledHeader>
   );
 };
@@ -21,14 +19,12 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 120px 120px;
+  padding: 0px 120px;
 `;
 const StyledH1 = styled.h1`
   color: rgb(255, 255, 255);
-  font-family: Poppins;
   font-size: 38px;
   font-weight: 600;
   line-height: 57px;
-  letter-spacing: 0%;
   text-align: left;
 `;
