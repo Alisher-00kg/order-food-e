@@ -5,10 +5,10 @@ import { Button } from "./ui/Button";
 import { ModalContex } from "../context/ContextModal";
 import { massive } from "../utils/constants/constants";
 
-const Modal = () => {
-  const { openClose, setOpenClose } = useContext(ModalContex);
+const Modal = ({ children }) => {
+  const { onClose } = useContext(ModalContex);
   return createPortal(
-    <BackdropDiv onClick={() => setOpenClose(!openClose)}>
+    <BackdropDiv onClick={onClose}>
       <StyledContent onClick={(e) => e.stopPropagation()}>
         <StyledUl>
           {massive.map((item, i) => {
@@ -34,10 +34,10 @@ const Modal = () => {
           <span>400$</span>
         </StyledTotalAmmount>
         <StyledCloseButtons>
-          <Button variant={"close"} onClick={() => setOpenClose(!openClose)}>
+          <Button variant={"close"} onClick={onClose}>
             close
           </Button>
-          <Button variant={"add"} onClick={() => setOpenClose(!openClose)}>
+          <Button variant={"add"} onClick={onClose}>
             order
           </Button>
         </StyledCloseButtons>
