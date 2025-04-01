@@ -4,7 +4,7 @@ import { Card } from "./components/Card";
 const App = () => {
   return (
     <div>
-      <Card
+      {/* <Card
         title={"Sushi"}
         structure={"Finest fish and veggies"}
         price={22.99}
@@ -23,7 +23,7 @@ const App = () => {
         title={"Green Bowl"}
         structure={"Healthy...and green..."}
         price={19.99}
-      />
+      /> */}
     </div>
   );
 };
