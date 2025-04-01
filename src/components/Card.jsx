@@ -43,37 +43,31 @@ const FoodContainer = styled.div`
 `;
 const TitleOfFood = styled.p`
   color: rgb(34, 34, 34);
-  font-family: Poppins;
   font-size: 18px;
   font-weight: 600;
   line-height: 27px;
-  letter-spacing: 0px;
   text-align: left;
 `;
 const Structure = styled.p`
   color: rgb(34, 34, 34);
-  font-family: Poppins;
   font-style: italic;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  letter-spacing: 0px;
   text-align: left;
 `;
 const Cost = styled.p`
   color: rgb(173, 85, 2);
-  font-family: Poppins;
   font-size: 20px;
   font-weight: 700;
   line-height: 30px;
-  letter-spacing: 0px;
   text-align: left;
 `;
 const AmountContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   gap: 12px;
 `;
 const StyledAmount = styled.div`
@@ -84,11 +78,9 @@ const StyledAmount = styled.div`
 `;
 const StyledLabel = styled.label`
   color: rgb(34, 34, 34);
-  font-family: Poppins;
   font-size: 18px;
   font-weight: 600;
   line-height: 27px;
-  letter-spacing: 0px;
   text-align: left;
 `;
 const StyledInputNumber = styled(Input)`
@@ -96,10 +88,7 @@ const StyledInputNumber = styled(Input)`
   height: 32px;
   cursor: pointer;
   color: rgb(34, 34, 34);
-  font-family: Poppins;
   font-size: 16px;
-  font-weight: 500;
   line-height: 24px;
-  letter-spacing: 0px;
   text-align: left;
 `;
