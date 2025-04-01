@@ -15,7 +15,13 @@ export const CardItem = ({ id, title, structure, price, amount }) => {
       <AmountContainer>
         <StyledAmount>
           <StyledLabel htmlFor={id}>Amount</StyledLabel>
-          <StyledInputNumber type="number" value={amount} min={0} max={5} />
+          <StyledInputNumber
+            type="number"
+            value={amount}
+            min={0}
+            max={5}
+            readOnly
+          />
         </StyledAmount>
         <Button variant={"add"}>
           <Icons.PlusWhite />
