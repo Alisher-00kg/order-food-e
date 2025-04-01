@@ -7,7 +7,7 @@ import ContextModal from "./context/ContextModal.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ContextModal>
-      <App />
+      <App></App>
     </ContextModal>
   </React.StrictMode>
 );

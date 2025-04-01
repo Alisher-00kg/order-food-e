@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "./components/Modal";
 import { useContext } from "react";
-import { ModalContex } from "./context/ContextModal";
+
 import { Button } from "./components/ui/Button";
 const App = () => {
   return (
@@ -9,8 +9,8 @@ const App = () => {
       style={{
         background: "black",
       }}
-    >
-      App
-    </div>
+    ></div>
   );
 };
+
+export default App;

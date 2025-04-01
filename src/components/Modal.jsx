@@ -1,15 +1,9 @@
 import React, { useContext } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { ModalContex } from "../context/ContextModal";
 import { Button } from "./ui/Button";
-
-const massive = [
-  { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
-  { title: "burger", price: 40 },
-];
+import { ModalContex } from "../context/ContextModal";
+import { massive } from "../utils/constants/constants";
 
 const Modal = () => {
   const { openClose, setOpenClose } = useContext(ModalContex);
@@ -24,13 +18,13 @@ const Modal = () => {
                   <h3>{item.title}</h3>
                   <StyledPriceBtn>
                     <span>$34</span>
-                    <Button></Button>
+                    <button>x1</button>
                   </StyledPriceBtn>
                 </div>
-                <div>
-                  <button>-</button>
-                  <button>+</button>
-                </div>
+                <StyledPlusMinusDiv>
+                  <Button variant={"close"}>-</Button>
+                  <Button variant={"open"}>+</Button>
+                </StyledPlusMinusDiv>
               </StyledLI>
             );
           })}
@@ -40,8 +34,12 @@ const Modal = () => {
           <span>400$</span>
         </StyledTotalAmmount>
         <StyledCloseButtons>
-          <button onClick={() => setOpenClose(!openClose)}>close</button>
-          <button onClick={() => setOpenClose(!openClose)}>order</button>
+          <Button variant={"close"} onClick={() => setOpenClose(!openClose)}>
+            close
+          </Button>
+          <Button variant={"add"} onClick={() => setOpenClose(!openClose)}>
+            order
+          </Button>
         </StyledCloseButtons>
       </StyledContent>
     </BackdropDiv>,
@@ -101,4 +99,10 @@ const StyledCloseButtons = styled.div`
   padding-top: 24px;
   margin-right: 19px;
   gap: 16px;
+  align-items: center;
+`;
+
+const StyledPlusMinusDiv = styled.div`
+  display: flex;
+  gap: 15px;
 `;
