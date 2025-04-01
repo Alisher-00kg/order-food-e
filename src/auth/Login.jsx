@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Input from "../components/UI/Input";
+import { Button } from "../components/ui/Button";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +12,8 @@ export const Login = () => {
     e.preventDefault();
     if (email.trim() === "" || password.trim() === "") {
       setError("Please fill in all fields!");
+    } else {
+      setError("");
     }
   };
 
@@ -27,7 +31,14 @@ export const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <StyledBtn>Login</StyledBtn>
+      <p
+        style={{
+          color: "red",
+        }}
+      >
+        {error}
+      </p>
+      <StyledBtn variant={"add"}>Login</StyledBtn>
     </StyledLoginContainer>
   );
 };
@@ -41,19 +52,18 @@ const StyledLoginContainer = styled.form`
   gap: 20px;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled(Input)`
   width: 450px;
   height: 40px;
   padding: 0px 10px;
 `;
 
-const StyledBtn = styled.button`
+const StyledBtn = styled(Button)`
   width: 450px;
   height: 40px;
   border: none;
   cursor: pointer;
   color: white;
-  background-color: blue;
   font-size: 18px;
   font-weight: 500;
   text-transform: uppercase;
