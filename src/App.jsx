@@ -4,13 +4,7 @@ import { useContext } from "react";
 
 import { Button } from "./components/ui/Button";
 const App = () => {
-  return (
-    <div
-      style={{
-        background: "black",
-      }}
-    ></div>
-  );
+  return <div></div>;
 };
 
 export default App;
