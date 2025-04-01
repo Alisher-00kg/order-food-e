@@ -11,7 +11,7 @@ export const HeaderButton = () => {
           <Icons.Basket />
           <StyledSpan>Your cart</StyledSpan>
         </StyledBasketBlock>
-        <StyledBtnBasket>0</StyledBtnBasket>
+        <Badge>0</Badge>
       </StyledContainerBasket>
     </div>
   );
@@ -46,7 +46,7 @@ const scale = keyframes`
     transform: scale(1.2);
   }
 `;
-const StyledBtnBasket = styled.span`
+const Badge = styled.span`
   width: 51px;
   height: 35px;
   display: flex;
