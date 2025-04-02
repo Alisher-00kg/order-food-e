@@ -21,7 +21,7 @@ export const HeaderButton = () => {
       </StyledContainerBasket>
       {openClose && (
         <Modal>
-          <ModalContainer>
+          <ModalContainer onClick={(e) => e.stopPropagation()}>
             {state.newOrderMassive.length === 0 ? (
               <>
                 <StyledH2>Total Amount</StyledH2>
