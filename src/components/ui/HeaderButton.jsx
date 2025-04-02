@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { Button } from "./Button";
 import { Icons } from "../../assets";
 import { ModalContext } from "../../context/ContextModal";
-import { FoodsContext } from "../../context/FoddsContext";
+import { FoodsContext } from "../../context/FoodsContext";
 import { Modal } from "../Modal";
 import { CardItem } from "../CardItem";
 
@@ -12,7 +12,7 @@ export const HeaderButton = () => {
   const { foodItems } = useContext(FoodsContext);
   return (
     <>
-      <StyledContainerBasket>
+      <StyledContainerBasket onClick={() => onOpen(!openClose)}>
         <StyledBasketBlock>
           <Icons.Basket />
           <StyledSpan>Your cart</StyledSpan>
@@ -26,7 +26,7 @@ export const HeaderButton = () => {
               <>
                 <StyledH2>Total Amount</StyledH2>
                 <DivCost>
-                  <StyledSpanAmount>$$</StyledSpanAmount>
+                  <StyledSpanAmount>$0.00</StyledSpanAmount>
                   <Button variant={"close"} onClick={onClose}>
                     Close
                   </Button>
@@ -38,6 +38,20 @@ export const HeaderButton = () => {
                   <ul>
                     <CardItem />
                   </ul>
+                  <ContainerofCost>
+                    <div>
+                      <StyledH2>Total Amount</StyledH2>
+                    </div>
+                    <DivCost2>
+                      <StyledSpanAmount>${0}</StyledSpanAmount>
+                      <DivOrderingClosing>
+                        <Button variant={"close"} onClick={onClose}>
+                          Close
+                        </Button>
+                        <Button variant={"add"}>Order</Button>
+                      </DivOrderingClosing>
+                    </DivCost2>
+                  </ContainerofCost>
                 </div>
               </div>
             )}
@@ -126,4 +140,23 @@ const DivCost = styled.div`
   justify-content: center;
   align-items: center;
   gap: 24px;
+`;
+const ContainerofCost = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+const DivCost2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 24px;
+`;
+const DivOrderingClosing = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-right: -10px;
 `;

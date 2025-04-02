@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Input from "./ui/Input";
 import { Icons } from "../assets";
 import { Button } from "./ui/Button";
+import { FoodsContext } from "../context/FoodsContext";
 
-export const CardItem = ({ id, title, structure, price, amount }) => {
+export const CardItem = ({ id, title, structure, price }) => {
+  const { state, dispatch } = useContext(FoodsContext);
+  const item = state.newOrder.find((item) => item.id === id);
+  const amount = item ? item.amount : 1;
+  const handleAmountChange = (e) => {
+    let value = parseInt(e.target.value, 10);
+    if (isNaN(value) || value < 1) value = 1;
+    if (value > 5) value = 5;
+
+    dispatch({ type: "update", payload: { id, amount: value } });
+  };
+  // const handleAddFood = () => {
+  //   dispatch({ type: "adding", payload: id });
+  // };
   return (
     <StyledLi>
       <FoodContainer>
@@ -20,7 +34,7 @@ export const CardItem = ({ id, title, structure, price, amount }) => {
             value={amount}
             min={0}
             max={5}
-            readOnly
+            onChange={handleAmountChange}
           />
         </StyledAmount>
         <Button variant={"add"}>
