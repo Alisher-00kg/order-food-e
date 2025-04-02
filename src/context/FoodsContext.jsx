@@ -2,58 +2,70 @@ import React, { createContext, useReducer, useState } from "react";
 import { menuItems } from "../utils/constants/foods";
 export const FoodsContext = createContext();
 const initialState = {
-  newOrder: [],
-  menu: menuItems,
+  menuItems: [...menuItems],
+  newOrderMassive: [],
+  newOrderMassiveid: [],
 };
-const addingReducer = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
-    case "increment": {
+    case "change":
       return {
         ...state,
-        newOrder: state.newOrder.map((item) =>
-          item.id === action.payload
-            ? {
-                ...item,
-                amount: item.amount + 1,
-              }
-            : item
+        menuItems: state.menuItems.map((item) =>
+          item.id == action.id ? { ...item, amount: action.value } : item
         ),
       };
-    }
-    case "decrement": {
-      return {
-        ...state,
-        newOrder: state.newOrder.map((item) =>
-          item.id === action.payload && item.amount > 1
-            ? {
-                ...item,
-                amount: item.amount - 1,
-              }
-            : item
-        ),
-      };
-    }
-    case "delete": {
-      return {
-        ...state,
-        newOrder: state.newOrder.filter((item) => item.id !== action.payload),
-      };
-    }
-    case "adding": {
-      const addedItem = state.menu.find((item) => item.id === action.payload);
-      if (!addedItem) return state;
+    case "add":
+      if (!state.newOrderMassiveid.includes(action.id)) {
+        const finded = state.menuItems.find((item) => item.id === action.id);
 
+        return {
+          ...state,
+          menuItems: state.menuItems.map((item) =>
+            item.id === action.id ? { ...item, amount: 1 } : item
+          ),
+          newOrderMassive: [...state.newOrderMassive, finded],
+          newOrderMassiveid: [...state.newOrderMassiveid, action.id],
+        };
+      } else {
+        return {
+          ...state,
+          menuItems: state.menuItems.map((item) =>
+            item.id === action.id ? { ...item, amount: 1 } : item
+          ),
+          newOrderMassive: state.newOrderMassive.map((item) => {
+            if (item.amount === 1) {
+              console.log(item);
+
+              return item.id === action.id
+                ? { ...item, ...action.item, amount: item.amount + 1 }
+                : item;
+            } else {
+              return item.id === action.id
+                ? {
+                    ...item,
+                    ...action.item,
+                    amount: item.amount + action.item.amount,
+                  }
+                : item;
+            }
+          }),
+        };
+      }
+
+    case "increment":
       return {
         ...state,
-        newOrder: [...state.newOrder, { ...addedItem, amount: 1 }],
+        newOrderMassive: state.newOrderMassive.map((item) =>
+          item.id === action.id ? { ...item, amount: item.amount + 1 } : item
+        ),
       };
-    }
-    case "update":
+    case "decrement":
       return {
         ...state,
-        newOrder: state.newOrder.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, amount: action.payload.amount }
+        newOrderMassive: state.newOrderMassive.map((item) =>
+          item.id === action.id && item.amount > 0
+            ? { ...item, amount: item.amount - 1 }
             : item
         ),
       };
@@ -62,14 +74,19 @@ const addingReducer = (state, action) => {
   }
 };
 export const FoodsProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(addingReducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const total = state.newOrderMassive.reduce((acc, item) => {
+    return acc + item.price * item.amount;
+  }, 0);
+
+  console.log(total);
   const [foodItems, setFoodItems] = useState([]);
   const handleAddFood = (item) => {
     setFoodItems((prevItems) => [...prevItems, item]);
   };
   return (
     <FoodsContext.Provider
-      value={{ foodItems, handleAddFood, state, dispatch }}
+      value={{ foodItems, handleAddFood, state, dispatch, total }}
     >
       {children}
     </FoodsContext.Provider>

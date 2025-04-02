@@ -5,20 +5,8 @@ import { Icons } from "../assets";
 import { Button } from "./ui/Button";
 import { FoodsContext } from "../context/FoodsContext";
 
-export const CardItem = ({ id, title, structure, price }) => {
+export const CardItem = ({ id, title, structure, price, amount, item }) => {
   const { state, dispatch } = useContext(FoodsContext);
-  const item = state.newOrder.find((item) => item.id === id);
-  const amount = item ? item.amount : 1;
-  const handleAmountChange = (e) => {
-    let value = parseInt(e.target.value, 10);
-    if (isNaN(value) || value < 1) value = 1;
-    if (value > 5) value = 5;
-
-    dispatch({ type: "update", payload: { id, amount: value } });
-  };
-  // const handleAddFood = () => {
-  //   dispatch({ type: "adding", payload: id });
-  // };
   return (
     <StyledLi>
       <FoodContainer>
@@ -32,12 +20,21 @@ export const CardItem = ({ id, title, structure, price }) => {
           <StyledInputNumber
             type="number"
             value={amount}
-            min={0}
-            max={5}
-            onChange={handleAmountChange}
+            min={1}
+            // max={5}
+            onChange={(e) =>
+              dispatch({
+                id: id,
+                type: "change",
+                value: Number(e.target.value),
+              })
+            }
           />
         </StyledAmount>
-        <Button variant={"add"}>
+        <Button
+          variant={"add"}
+          onClick={() => dispatch({ id: id, type: "add", item: item })}
+        >
           <Icons.PlusWhite />
           Add
         </Button>
