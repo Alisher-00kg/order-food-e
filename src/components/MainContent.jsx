@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { menuItems } from "../utils/constants/foods";
 import { BannerImg } from "../assets";
 import { CardItem } from "./CardItem";
+import { FoodsContext } from "../context/FoodsContext";
 export const MainContent = () => {
+  const { state } = useContext(FoodsContext);
   return (
     <StyledMain>
       <StyledImg src={BannerImg} alt="banner" />
@@ -19,7 +20,7 @@ export const MainContent = () => {
         </StyledP1>
       </Description>
       <StyledUl>
-        {menuItems.map((item) => (
+        {state.menuItems.map((item) => (
           <CardItem key={item.id} {...item} />
         ))}
       </StyledUl>

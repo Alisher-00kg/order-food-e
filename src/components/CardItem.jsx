@@ -33,7 +33,9 @@ export const CardItem = ({ id, title, structure, price, amount, item }) => {
         </StyledAmount>
         <Button
           variant={"add"}
-          onClick={() => dispatch({ id: id, type: "add", item: item })}
+          onClick={() =>
+            dispatch({ id: id, type: "add", item: { ...item, amount } })
+          }
         >
           <Icons.PlusWhite />
           Add

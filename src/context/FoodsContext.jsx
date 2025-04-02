@@ -22,37 +22,26 @@ const reducer = (state, action) => {
         return {
           ...state,
           menuItems: state.menuItems.map((item) =>
-            item.id === action.id ? { ...item, amount: 1 } : item
+            item.id === action.id
+              ? { ...item, amount: action.item.amount }
+              : item
           ),
-          newOrderMassive: [...state.newOrderMassive, finded],
+          newOrderMassive: [
+            ...state.newOrderMassive,
+            { ...finded, amount: action.item.amount },
+          ],
           newOrderMassiveid: [...state.newOrderMassiveid, action.id],
         };
       } else {
         return {
           ...state,
-          menuItems: state.menuItems.map((item) =>
-            item.id === action.id ? { ...item, amount: 1 } : item
+          newOrderMassive: state.newOrderMassive.map((item) =>
+            item.id === action.id
+              ? { ...item, amount: item.amount + action.item.amount }
+              : item
           ),
-          newOrderMassive: state.newOrderMassive.map((item) => {
-            if (item.amount === 1) {
-              console.log(item);
-
-              return item.id === action.id
-                ? { ...item, ...action.item, amount: item.amount + 1 }
-                : item;
-            } else {
-              return item.id === action.id
-                ? {
-                    ...item,
-                    ...action.item,
-                    amount: item.amount + action.item.amount,
-                  }
-                : item;
-            }
-          }),
         };
       }
-
     case "increment":
       return {
         ...state,
@@ -63,10 +52,17 @@ const reducer = (state, action) => {
     case "decrement":
       return {
         ...state,
-        newOrderMassive: state.newOrderMassive.map((item) =>
-          item.id === action.id && item.amount > 0
-            ? { ...item, amount: item.amount - 1 }
-            : item
+        newOrderMassive: state.newOrderMassive
+          .map((item) =>
+            item.id === action.id ? { ...item, amount: item.amount - 1 } : item
+          )
+          .filter((item) => item.amount > 0),
+      };
+    case "remove":
+      return {
+        ...state,
+        newOrderMassive: state.newOrderMassive.filter(
+          (item) => item.id !== action.id
         ),
       };
     default:
@@ -80,14 +76,8 @@ export const FoodsProvider = ({ children }) => {
   }, 0);
 
   console.log(total);
-  const [foodItems, setFoodItems] = useState([]);
-  const handleAddFood = (item) => {
-    setFoodItems((prevItems) => [...prevItems, item]);
-  };
   return (
-    <FoodsContext.Provider
-      value={{ foodItems, handleAddFood, state, dispatch, total }}
-    >
+    <FoodsContext.Provider value={{ state, dispatch, total }}>
       {children}
     </FoodsContext.Provider>
   );
