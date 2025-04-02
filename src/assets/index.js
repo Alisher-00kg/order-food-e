@@ -5,7 +5,6 @@ import MinusRed from "./icons/minus-red.svg?react";
 import Basket from "./icons/basket.svg?react";
 import PlusWhite from "./icons/plus-white.svg?react";
 import MinusWhite from "./icons/minus-white.svg?react";
-import Telegram from "./images/Telegram-icon-on-transparent-background-PNG.webp";
 
 export const Icons = {
   BannerImg,
@@ -14,5 +13,4 @@ export const Icons = {
   Basket,
   PlusWhite,
   MinusWhite,
-  Telegram,
 };
