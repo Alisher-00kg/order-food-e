@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 
-export const ModalContex = createContext();
+export const ModalContext = createContext();
 
 const ContextModal = ({ children }) => {
   const [openClose, setOpenClose] = useState(false);
@@ -12,7 +12,7 @@ const ContextModal = ({ children }) => {
     setOpenClose(!openClose);
   };
   return (
-    <ModalContex.Provider
+    <ModalContext.Provider
       value={{
         onOpen: handleOpen,
         onClose: handleClose,
@@ -20,7 +20,7 @@ const ContextModal = ({ children }) => {
       }}
     >
       {children}
-    </ModalContex.Provider>
+    </ModalContext.Provider>
   );
 };
 

@@ -5,6 +5,7 @@ export const menuItems = [
     structure: "Finest fish and veggies",
     price: 22.99,
     amount: 1,
+    completed: false,
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const menuItems = [
     structure: "A german specialty!",
     price: 16.0,
     amount: 1,
+    completed: false,
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export const menuItems = [
     structure: "American, raw, meaty",
     price: 12.99,
     amount: 1,
+    completed: false,
   },
   {
     id: 4,
@@ -26,5 +29,6 @@ export const menuItems = [
     structure: "Healthy...and green...",
     price: 19.99,
     amount: 1,
+    completed: false,
   },
 ];

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Input from "./ui/Input";
 import { Icons } from "../assets";
 import { Button } from "./ui/Button";
+import { FoodsContext } from "../context/FoodsContext";
 
-export const CardItem = ({ id, title, structure, price, amount }) => {
+export const CardItem = ({ id, title, structure, price, amount, item }) => {
+  const { state, dispatch } = useContext(FoodsContext);
   return (
     <StyledLi>
       <FoodContainer>
@@ -15,9 +17,24 @@ export const CardItem = ({ id, title, structure, price, amount }) => {
       <AmountContainer>
         <StyledAmount>
           <StyledLabel htmlFor={id}>Amount</StyledLabel>
-          <StyledInputNumber type="number" value={amount} min={0} max={5} />
+          <StyledInputNumber
+            type="number"
+            value={amount}
+            min={1}
+            // max={5}
+            onChange={(e) =>
+              dispatch({
+                id: id,
+                type: "change",
+                value: Number(e.target.value),
+              })
+            }
+          />
         </StyledAmount>
-        <Button variant={"add"}>
+        <Button
+          variant={"add"}
+          onClick={() => dispatch({ id: id, type: "add", item: item })}
+        >
           <Icons.PlusWhite />
           Add
         </Button>

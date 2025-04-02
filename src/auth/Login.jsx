@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Input from "../components/UI/Input";
 import { Button } from "../components/ui/Button";
+import Input from "../components/ui/Input";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
