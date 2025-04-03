@@ -42,6 +42,7 @@ export const Footer = () => {
         </ul>
       </FooterSection>
       <p>© 2025 Все права защищены.</p>
+      HELLO WORLD
     </FooterContainer>
   );
 };
