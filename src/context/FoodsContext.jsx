@@ -59,11 +59,19 @@ const reducer = (state, action) => {
           .filter((item) => item.amount > 0),
       };
     case "remove":
+      const updatedOrder = state.newOrderMassive.filter(
+        (item) => item.id !== action.id
+      );
       return {
         ...state,
-        newOrderMassive: state.newOrderMassive.filter(
-          (item) => item.id !== action.id
-        ),
+        newOrderMassive: updatedOrder,
+        newOrderMassiveid: updatedOrder.length ? state.newOrderMassiveid : [],
+      };
+    case "clear_cart":
+      return {
+        ...state,
+        newOrderMassive: [],
+        newOrderMassiveid: [],
       };
     default:
       return state;
@@ -74,10 +82,17 @@ export const FoodsProvider = ({ children }) => {
   const total = state.newOrderMassive.reduce((acc, item) => {
     return acc + item.price * item.amount;
   }, 0);
-
   console.log(total);
+  const [isBouncing, setIsBouncing] = useState(false);
+  const handleAddAnimation = () => {
+    setIsBouncing(true);
+    setTimeout(() => setIsBouncing(false), 500);
+  };
+
   return (
-    <FoodsContext.Provider value={{ state, dispatch, total }}>
+    <FoodsContext.Provider
+      value={{ state, dispatch, total, isBouncing, handleAddAnimation }}
+    >
       {children}
     </FoodsContext.Provider>
   );

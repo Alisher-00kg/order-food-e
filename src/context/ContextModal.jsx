@@ -11,12 +11,6 @@ const ContextModal = ({ children }) => {
   const handleClose = () => {
     setOpenClose(false);
   };
-  // const handleOpen = () => {
-  //   setOpenClose(!openClose);
-  // };
-  // const handleClose = () => {
-  //   setOpenClose(!openClose);
-  // };
   return (
     <ModalContext.Provider
       value={{

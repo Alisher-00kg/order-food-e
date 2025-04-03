@@ -9,10 +9,13 @@ import { OrderItem } from "./OrderItem";
 
 export const HeaderButton = () => {
   const { openClose, onClose, onOpen } = useContext(ModalContext);
-  const { dispatch, state, total } = useContext(FoodsContext);
+  const { dispatch, state, total, isBouncing } = useContext(FoodsContext);
   return (
     <>
-      <StyledContainerBasket onClick={() => onOpen(!openClose)}>
+      <StyledContainerBasket
+        onClick={() => onOpen(!openClose)}
+        className={isBouncing ? "bounce" : ""}
+      >
         <StyledBasketBlock>
           <Icons.Basket />
           <StyledSpan>Your cart</StyledSpan>
@@ -26,8 +29,14 @@ export const HeaderButton = () => {
               <>
                 <StyledH2>Total Amount</StyledH2>
                 <DivCost>
-                  <StyledSpanAmount>{total}</StyledSpanAmount>
-                  <Button variant={"close"} onClick={onClose}>
+                  <StyledSpanAmount>${total.toFixed(2)}</StyledSpanAmount>
+                  <Button
+                    variant={"close"}
+                    onClick={() => {
+                      onClose();
+                      dispatch({ type: "clear_cart" });
+                    }}
+                  >
                     Close
                   </Button>
                 </DivCost>
@@ -68,6 +77,12 @@ export const HeaderButton = () => {
     </>
   );
 };
+const heartbeat = keyframes`
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+`;
 const StyledContainerBasket = styled(Button)`
   width: 249px;
   height: 59px;
@@ -77,6 +92,9 @@ const StyledContainerBasket = styled(Button)`
   gap: 24px;
   border-radius: 30px;
   background-color: rgb(90, 31, 8);
+  &.bounce {
+    animation: ${heartbeat} 0.5s ease;
+  }
 `;
 const StyledBasketBlock = styled.div`
   display: flex;
