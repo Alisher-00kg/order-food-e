@@ -22,37 +22,26 @@ const reducer = (state, action) => {
         return {
           ...state,
           menuItems: state.menuItems.map((item) =>
-            item.id === action.id ? { ...item, amount: 1 } : item
+            item.id === action.id
+              ? { ...item, amount: action.item.amount }
+              : item
           ),
-          newOrderMassive: [...state.newOrderMassive, finded],
+          newOrderMassive: [
+            ...state.newOrderMassive,
+            { ...finded, amount: action.item.amount },
+          ],
           newOrderMassiveid: [...state.newOrderMassiveid, action.id],
         };
       } else {
         return {
           ...state,
-          menuItems: state.menuItems.map((item) =>
-            item.id === action.id ? { ...item, amount: 1 } : item
+          newOrderMassive: state.newOrderMassive.map((item) =>
+            item.id === action.id
+              ? { ...item, amount: item.amount + action.item.amount }
+              : item
           ),
-          newOrderMassive: state.newOrderMassive.map((item) => {
-            if (item.amount === 1) {
-              console.log(item);
-
-              return item.id === action.id
-                ? { ...item, ...action.item, amount: item.amount + 1 }
-                : item;
-            } else {
-              return item.id === action.id
-                ? {
-                    ...item,
-                    ...action.item,
-                    amount: item.amount + action.item.amount,
-                  }
-                : item;
-            }
-          }),
         };
       }
-
     case "increment":
       return {
         ...state,
@@ -63,11 +52,26 @@ const reducer = (state, action) => {
     case "decrement":
       return {
         ...state,
-        newOrderMassive: state.newOrderMassive.map((item) =>
-          item.id === action.id && item.amount > 0
-            ? { ...item, amount: item.amount - 1 }
-            : item
-        ),
+        newOrderMassive: state.newOrderMassive
+          .map((item) =>
+            item.id === action.id ? { ...item, amount: item.amount - 1 } : item
+          )
+          .filter((item) => item.amount > 0),
+      };
+    case "remove":
+      const updatedOrder = state.newOrderMassive.filter(
+        (item) => item.id !== action.id
+      );
+      return {
+        ...state,
+        newOrderMassive: updatedOrder,
+        newOrderMassiveid: updatedOrder.length ? state.newOrderMassiveid : [],
+      };
+    case "clear_cart":
+      return {
+        ...state,
+        newOrderMassive: [],
+        newOrderMassiveid: [],
       };
     default:
       return state;
@@ -78,15 +82,16 @@ export const FoodsProvider = ({ children }) => {
   const total = state.newOrderMassive.reduce((acc, item) => {
     return acc + item.price * item.amount;
   }, 0);
-
   console.log(total);
-  const [foodItems, setFoodItems] = useState([]);
-  const handleAddFood = (item) => {
-    setFoodItems((prevItems) => [...prevItems, item]);
+  const [isBouncing, setIsBouncing] = useState(false);
+  const handleAddAnimation = () => {
+    setIsBouncing(true);
+    setTimeout(() => setIsBouncing(false), 500);
   };
+
   return (
     <FoodsContext.Provider
-      value={{ foodItems, handleAddFood, state, dispatch, total }}
+      value={{ state, dispatch, total, isBouncing, handleAddAnimation }}
     >
       {children}
     </FoodsContext.Provider>

@@ -6,7 +6,7 @@ import { Button } from "./ui/Button";
 import { FoodsContext } from "../context/FoodsContext";
 
 export const CardItem = ({ id, title, structure, price, amount, item }) => {
-  const { state, dispatch } = useContext(FoodsContext);
+  const { dispatch, handleAddAnimation } = useContext(FoodsContext);
   return (
     <StyledLi>
       <FoodContainer>
@@ -21,7 +21,7 @@ export const CardItem = ({ id, title, structure, price, amount, item }) => {
             type="number"
             value={amount}
             min={1}
-            // max={5}
+            max={5}
             onChange={(e) =>
               dispatch({
                 id: id,
@@ -33,7 +33,10 @@ export const CardItem = ({ id, title, structure, price, amount, item }) => {
         </StyledAmount>
         <Button
           variant={"add"}
-          onClick={() => dispatch({ id: id, type: "add", item: item })}
+          onClick={() => {
+            dispatch({ id: id, type: "add", item: { ...item, amount } });
+            handleAddAnimation();
+          }}
         >
           <Icons.PlusWhite />
           Add

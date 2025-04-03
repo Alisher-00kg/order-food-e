@@ -5,55 +5,71 @@ import { Icons } from "../../assets";
 import { ModalContext } from "../../context/ContextModal";
 import { FoodsContext } from "../../context/FoodsContext";
 import { Modal } from "../Modal";
-import { CardItem } from "../CardItem";
+import { OrderItem } from "./OrderItem";
 
 export const HeaderButton = () => {
   const { openClose, onClose, onOpen } = useContext(ModalContext);
-  const { foodItems } = useContext(FoodsContext);
+  const { dispatch, state, total, isBouncing } = useContext(FoodsContext);
   return (
     <>
-      <StyledContainerBasket onClick={() => onOpen(!openClose)}>
+      <StyledContainerBasket
+        onClick={() => onOpen(!openClose)}
+        className={isBouncing ? "bounce" : ""}
+      >
         <StyledBasketBlock>
           <Icons.Basket />
           <StyledSpan>Your cart</StyledSpan>
         </StyledBasketBlock>
-        <Badge>0</Badge>
+        <Badge>{state.newOrderMassive.length}</Badge>
       </StyledContainerBasket>
       {openClose && (
         <Modal>
-          <ModalContainer>
-            {foodItems.length === 0 ? (
+          <ModalContainer onClick={(e) => e.stopPropagation()}>
+            {state.newOrderMassive.length === 0 ? (
               <>
                 <StyledH2>Total Amount</StyledH2>
                 <DivCost>
-                  <StyledSpanAmount>$0.00</StyledSpanAmount>
-                  <Button variant={"close"} onClick={onClose}>
+                  <StyledSpanAmount>${total.toFixed(2)}</StyledSpanAmount>
+                  <Button
+                    variant={"close"}
+                    onClick={() => {
+                      onClose();
+                      dispatch({ type: "clear_cart" });
+                    }}
+                  >
                     Close
                   </Button>
                 </DivCost>
               </>
             ) : (
-              <div>
-                <div>
-                  <ul>
-                    {/* <CardItem /> */}
-                  </ul>
-                  <ContainerofCost>
-                    <div>
-                      <StyledH2>Total Amount</StyledH2>
-                    </div>
-                    <DivCost2>
-                      <StyledSpanAmount>${0}</StyledSpanAmount>
-                      <DivOrderingClosing>
-                        <Button variant={"close"} onClick={onClose}>
-                          Close
-                        </Button>
-                        <Button variant={"add"}>Order</Button>
-                      </DivOrderingClosing>
-                    </DivCost2>
-                  </ContainerofCost>
-                </div>
-              </div>
+              <SecondMoadl>
+                <StyledUlContainer>
+                  <StyledUl>
+                    {state.newOrderMassive.map((item) => (
+                      <OrderItem key={item.id} {...item} item={item} />
+                    ))}
+                  </StyledUl>
+                </StyledUlContainer>
+                <ContainerofCost>
+                  <>
+                    <StyledH2>Total Amount</StyledH2>
+                  </>
+                  <DivCost2>
+                    <StyledSpanAmount>{total.toFixed(2)}</StyledSpanAmount>
+                    <DivOrderingClosing>
+                      <Button variant={"close"} onClick={onClose}>
+                        Close
+                      </Button>
+                      <Button
+                        variant={"add"}
+                        onClick={() => dispatch({ type: "order" })}
+                      >
+                        Order
+                      </Button>
+                    </DivOrderingClosing>
+                  </DivCost2>
+                </ContainerofCost>
+              </SecondMoadl>
             )}
           </ModalContainer>
         </Modal>
@@ -61,6 +77,12 @@ export const HeaderButton = () => {
     </>
   );
 };
+const heartbeat = keyframes`
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+`;
 const StyledContainerBasket = styled(Button)`
   width: 249px;
   height: 59px;
@@ -70,6 +92,9 @@ const StyledContainerBasket = styled(Button)`
   gap: 24px;
   border-radius: 30px;
   background-color: rgb(90, 31, 8);
+  &.bounce {
+    animation: ${heartbeat} 0.5s ease;
+  }
 `;
 const StyledBasketBlock = styled.div`
   display: flex;
@@ -116,7 +141,7 @@ const ModalContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 16px;
-  padding: 30px 20px;
+  padding: 30px 10px;
 `;
 const StyledH2 = styled.h2`
   color: rgb(34, 34, 34);
@@ -141,11 +166,26 @@ const DivCost = styled.div`
   align-items: center;
   gap: 24px;
 `;
+const SecondMoadl = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const StyledUlContainer = styled.div`
+  width: 540px;
+  height: 250px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledUl = styled.ul`
+  width: 100%;
+`;
 const ContainerofCost = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  margin-top: 20px;
 `;
 const DivCost2 = styled.div`
   display: flex;
