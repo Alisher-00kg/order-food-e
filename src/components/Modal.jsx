@@ -7,7 +7,9 @@ export const Modal = ({ children }) => {
   const { onClose } = useContext(ModalContext);
   return createPortal(
     <Overlay onClick={onClose}>
-      <ModalContent>{children}</ModalContent>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
+        {children}
+      </ModalContent>
     </Overlay>,
     document.getElementById("modal")
   );

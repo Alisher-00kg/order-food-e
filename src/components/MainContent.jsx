@@ -20,7 +20,7 @@ export const MainContent = () => {
         </StyledP1>
       </Description>
       <StyledUl>
-        {state.menuItems.map((item) => (
+        {state.menuItems?.map((item) => (
           <CardItem key={item.id} {...item} />
         ))}
       </StyledUl>

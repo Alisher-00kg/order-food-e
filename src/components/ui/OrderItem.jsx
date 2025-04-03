@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { Button } from "./Button";
 import styled from "styled-components";
 import { FoodsContext } from "../../context/FoodsContext";
 import { Icons } from "../../assets";
+import IconButton from "./IconButton";
 
 export const OrderItem = ({ id, title, price, amount }) => {
   const { dispatch } = useContext(FoodsContext);
@@ -23,15 +23,15 @@ export const OrderItem = ({ id, title, price, amount }) => {
         </StyledBlockAmountPrice>
       </GlobalDivOfTitlePrice>
       <IncreaseDecrease>
-        <StyledBtnMinus onClick={handleDecrement} variant={"close"}>
+        <IconButton onClick={handleDecrement} variant={"close"}>
           <Icons.MinusRed />
-        </StyledBtnMinus>
-        <StyledBtnPlus
-          variant={"add"}
+        </IconButton>
+        <IconButton
+          variant={"close"}
           onClick={() => dispatch({ type: "increment", id })}
         >
           <Icons.PlusRed />
-        </StyledBtnPlus>
+        </IconButton>
       </IncreaseDecrease>
     </StyledLi>
   );
@@ -51,11 +51,9 @@ const GlobalDivOfTitlePrice = styled.div`
 `;
 const StyledPTag = styled.p`
   color: rgb(34, 34, 34);
-  font-family: Poppins;
   font-size: 20px;
   font-weight: 600;
   line-height: 30px;
-  letter-spacing: 0%;
   text-align: left;
 `;
 const StyledBlockAmountPrice = styled.div`
@@ -66,11 +64,9 @@ const StyledBlockAmountPrice = styled.div`
 `;
 const StyledSpan = styled.span`
   color: rgb(173, 85, 2);
-  font-family: Poppins;
   font-size: 18px;
   font-weight: 600;
   line-height: 27px;
-  letter-spacing: 0px;
   text-align: left;
 `;
 const StyledDivAmount = styled.div`
@@ -84,43 +80,10 @@ const StyledDivAmount = styled.div`
   justify-content: center;
   align-items: center;
   color: rgb(34, 34, 34);
-  font-family: Poppins;
-  font-size: 16px;
-  font-weight: 500;
   line-height: 24px;
-  letter-spacing: 0px;
 `;
 const IncreaseDecrease = styled.div`
   display: flex;
   gap: 14px;
   padding-right: 20px;
-`;
-const StyledBtnMinus = styled(Button)`
-  width: 48px;
-  height: 36px;
-  background-color: #ffffff;
-  border-radius: 6px;
-  border: 1px solid rgb(138, 43, 6);
-  &:disabled {
-    border: 1px solid rgb(202, 198, 196);
-  }
-`;
-
-const StyledBtnPlus = styled(Button)`
-  width: 48px;
-  height: 36px;
-  background-color: #ffffff;
-  border-radius: 6px;
-  border: 1px solid rgb(138, 43, 6);
-  /* &:hover {
-    background: rgb(138, 43, 6);
-  }
-
-  &:active {
-    background: rgb(153, 49, 8);
-  } */
-
-  &:disabled {
-    border: 1px solid rgb(202, 198, 196);
-  }
 `;

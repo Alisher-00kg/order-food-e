@@ -1,8 +1,9 @@
 import React, { createContext, useReducer, useState } from "react";
 import { menuItems } from "../utils/constants/foods";
+import { toast } from "react-toastify";
 export const FoodsContext = createContext();
 const initialState = {
-  menuItems: [...menuItems],
+  menuItems: menuItems,
   newOrderMassive: [],
   newOrderMassiveid: [],
 };
@@ -18,7 +19,6 @@ const reducer = (state, action) => {
     case "add":
       if (!state.newOrderMassiveid.includes(action.id)) {
         const finded = state.menuItems.find((item) => item.id === action.id);
-
         return {
           ...state,
           menuItems: state.menuItems.map((item) =>
@@ -73,6 +73,8 @@ const reducer = (state, action) => {
         newOrderMassive: [],
         newOrderMassiveid: [],
       };
+    case "order":
+      return { ...state, newOrderMassive: [] };
     default:
       return state;
   }
@@ -82,17 +84,10 @@ export const FoodsProvider = ({ children }) => {
   const total = state.newOrderMassive.reduce((acc, item) => {
     return acc + item.price * item.amount;
   }, 0);
-  console.log(total);
-  const [isBouncing, setIsBouncing] = useState(false);
-  const handleAddAnimation = () => {
-    setIsBouncing(true);
-    setTimeout(() => setIsBouncing(false), 500);
-  };
+  console.log(state.newOrderMassive);
 
   return (
-    <FoodsContext.Provider
-      value={{ state, dispatch, total, isBouncing, handleAddAnimation }}
-    >
+    <FoodsContext.Provider value={{ state, dispatch, total }}>
       {children}
     </FoodsContext.Provider>
   );

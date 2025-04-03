@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Button } from "./Button";
 import { Icons } from "../../assets";
@@ -9,23 +9,38 @@ import { OrderItem } from "./OrderItem";
 
 export const HeaderButton = () => {
   const { openClose, onClose, onOpen } = useContext(ModalContext);
-  const { dispatch, state, total, isBouncing } = useContext(FoodsContext);
+  const { dispatch, state, total } = useContext(FoodsContext);
+  const [count, setCount] = useState(0);
+  const [bounce, setBounce] = useState("");
+
+  const totalCount = state.newOrderMassive.reduce((acc, meal) => {
+    return acc + meal.amount;
+  }, 0);
+  console.log(state.newOrderMassive);
+
+  useEffect(() => {
+    setBounce("bounce");
+    setCount(totalCount);
+    return () => {
+      setTimeout(() => setBounce(""), 300);
+    };
+  }, [total]);
   return (
     <>
       <StyledContainerBasket
         onClick={() => onOpen(!openClose)}
-        className={isBouncing ? "bounce" : ""}
+        className={bounce}
       >
         <StyledBasketBlock>
           <Icons.Basket />
           <StyledSpan>Your cart</StyledSpan>
         </StyledBasketBlock>
-        <Badge>{state.newOrderMassive.length}</Badge>
+        <Badge>{count}</Badge>
       </StyledContainerBasket>
       {openClose && (
         <Modal>
           <ModalContainer onClick={(e) => e.stopPropagation()}>
-            {state.newOrderMassive.length === 0 ? (
+            {count === 0 ? (
               <>
                 <StyledH2>Total Amount</StyledH2>
                 <DivCost>
@@ -173,13 +188,14 @@ const SecondMoadl = styled.div`
 const StyledUlContainer = styled.div`
   width: 540px;
   height: 250px;
-  overflow-y: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 const StyledUl = styled.ul`
   width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 `;
 const ContainerofCost = styled.div`
   width: 100%;

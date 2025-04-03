@@ -35,7 +35,6 @@ export const CardItem = ({ id, title, structure, price, amount, item }) => {
           variant={"add"}
           onClick={() => {
             dispatch({ id: id, type: "add", item: { ...item, amount } });
-            handleAddAnimation();
           }}
         >
           <Icons.PlusWhite />
