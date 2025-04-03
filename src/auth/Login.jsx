@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../components/ui/Button";
 import Input from "../components/ui/Input";
+import { LoginContext } from "../context/LoginContext";
 
 export const Login = () => {
+  const { onLogin } = useContext(LoginContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,6 +17,7 @@ export const Login = () => {
       setError("Please fill in all fields!");
     } else {
       setError("");
+      onLogin();
     }
   };
 
@@ -38,7 +42,7 @@ export const Login = () => {
       >
         {error}
       </p>
-      <StyledBtn variant={"add"}>Login</StyledBtn>
+      <StyledBtn variant="add">Login</StyledBtn>
     </StyledLoginContainer>
   );
 };
