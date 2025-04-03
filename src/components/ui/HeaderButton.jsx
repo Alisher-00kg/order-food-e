@@ -70,7 +70,7 @@ export const HeaderButton = () => {
                     <StyledH2>Total Amount</StyledH2>
                   </>
                   <DivCost2>
-                    <StyledSpanAmount>{total.toFixed(2)}</StyledSpanAmount>
+                    <StyledSpanAmount>${total.toFixed(2)}</StyledSpanAmount>
                     <DivOrderingClosing>
                       <Button variant={"close"} onClick={onClose}>
                         Close
